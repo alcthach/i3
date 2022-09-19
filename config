@@ -11,9 +11,15 @@
 
 set $mod Mod4
 
+# Set background
+exec --no-startup-id nitrogen --restore & 
+
+# Enable picom
+exec --no-startup-id picom -b
+
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:monospace 8
+font pango:Noto Sans 8 
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -48,7 +54,11 @@ floating_modifier $mod
 bindsym $mod+Return exec kitty
 
 # start chromium
-bindsym $mod+w exec chromium-browser	
+bindsym $mod+w exec firefox
+
+# print screen
+bindsym Print exec scrot ~/%Y-%m-%d-%T-screenshot.png && notify-send "Screenshot saved to ~/$(date +"%Y-%m-%d-%T")-screenshot.png"
+
 
 # kill focused window
 bindsym $mod+q kill
@@ -117,10 +127,10 @@ bindsym $mod+a focus parent
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "1: Terminal"
-set $ws2 "2: Browser"
-set $ws3 "3: Desktop"
-set $ws4 "4: Music"
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
 set $ws5 "5"
 set $ws6 "6"
 set $ws7 "7"
@@ -154,14 +164,29 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 
 # bind program to workspace and focus to them on startup
 assign [class="kitty"] $ws1
-assign [class="Chromium-browser"] $ws2
+assign [class="firefox"] $ws6
 # assign [class="Thunar"] $ws3
 # assign [class="Thunderbird"] $ws4
 # assign [class="TelegramDesktop"] $ws5
 
 # automatic set focus new window if it opens another workspace then the current
 for_window [class="kitty"] focus
-for_window [class="Chromium-browser"] focus
+for_window [class="firefox"] focus
+
+
+# 4.20. Automatically putting workspaces on specific screens
+workspace $ws1 output DisplayPort-1
+workspace $ws2 output DisplayPort-1
+workspace $ws3 output DisplayPort-1
+workspace $ws4 output DisplayPort-1
+workspace $ws5 output DisplayPort-1
+workspace $ws6 output DisplayPort-0
+workspace $ws7 output DisplayPort-0
+workspace $ws8 output DisplayPort-0
+workspace $ws9 output DisplayPort-0
+workspace $ws10 output DisplayPort-0
+
+
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
