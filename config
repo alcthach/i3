@@ -2,7 +2,30 @@
 
 set $mod Mod4
 
-font pango:DejaVu Sans Mono 8
+font pango: JetBrainsMono 8 
+
+# COLOUR PALETTE
+
+set $base03 	"#002b36"
+set $base02 	"#073642"
+set $base01 	"#586e75"
+set $base00 	"#657b83"
+set $base0 	"#839496"
+set $base1 	"#93a1a1"
+set $base2 	"#eee8d5"
+set $base3 	"#fdf6e3"
+set $yellow 	"#b58900"
+set $orange 	"#cb4b16"
+set $red 	"#dc322f"
+set $magenta 	"#d33682"
+set $violet 	"#6c71c4"
+set $blue 	"#268bd2"
+set $cyan 	"#2aa198"
+set $green 	"#859900"
+
+# exec --no-startup-id xsetroot -solid "#FDF6E3"
+
+exec --no-startup-id nitrogen --restore
 
 exec --no-startup-id dex-autostart --autostart --environment i3
 
@@ -19,15 +42,21 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
-bindsym $mod+Return exec kitty
+bindsym $mod+Return exec kitty	
 
 bindsym $mod+w exec firefox
+
+bindsym $mod+Shift+m exec pavucontrol
 
 bindsym Print exec scrot ~/%Y-%m-%d-%T-screenshot.png && notify-send "Screenshot saved to ~/$(date +"%Y-%m-%d-%T")-screenshot.png"
 
 bindsym $mod+q kill
 
-bindsym $mod+d exec --no-startup-id dmenu_run
+# Solarized Light
+bindsym $mod+d exec --no-startup-id dmenu_run -fn 'JetBrainsMono-10' -nf '#657b83' -nb '#fdf6e3' -sf '#586e75' -sb '#eee8d5'
+
+#Solarized Dark
+#bindsym $mod+d exec --no-startup-id dmenu_run -fn 'JetBrainsMono-10' -nf '#839496' -nb '#002b36' -sf '#93a1a1' -sb '#073642'
 
 bindsym $mod+h focus left
 bindsym $mod+j focus down
@@ -105,6 +134,7 @@ assign [class="firefox"] $ws6
 
 for_window [class="kitty"] focus
 for_window [class="firefox"] focus
+for_window [class="Pavucontrol"] floating enable
 
 workspace $ws1 output DisplayPort-1
 workspace $ws2 output DisplayPort-1
@@ -147,6 +177,55 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+
+
+
+# Solarized light
+# class                 border  bground text    indicator child_border
+client.focused          #EEE8D5 #EEE8D5 #586E75 #EEE8D5   #EEE8D5
+client.focused_inactive #FDF6E3 #FDF6E3 #657B83 #FDF6E3   #FDF6E3
+client.unfocused        #FDF6E3 #FDF6E3 #657B83 #FDF6E3   #FDF6E3
+client.urgent           #DC322F #DC322F #FFFFFF #DC322F   #DC322F
+client.placeholder      #000000 #0C0C0C #FFFFFF #000000   #0C0C0C
+
+client.background       #FDF6E3
+
 bar {
-        status_command i3status
+ status_command i3status
+ colors {
+    background #FDF6E3
+    statusline #657B83
+    separator  #666666
+
+   focused_workspace  #EEE8D5 #EEE8D5 #586E75
+    active_workspace   #FDF6E6 #FDF6E6 #657B83
+    inactive_workspace #FDF6E6 #FDF6E6 #657B83
+    urgent_workspace   #DC322F #DC322F #586E75
+    binding_mode       #2F343A #900000 #FFFFFF
+  }
 }
+
+# Solarized Dark
+# class                 border  bground text    indicator child_border
+#client.focused          $base02 $base02 $base0 $base02 $base02
+#client.focused_inactive $base03 $base03 $base0 $base03 $base03 
+#client.unfocused        $base03 $base03 $base0 $base03 $base03 
+#client.urgent           $red $red $base0 $red $red 
+#client.placeholder      #000000 #0C0C0C #FFFFFF #000000   #0C0C0C
+
+#client.background       $base0 
+
+#bar {
+# status_command i3status
+# colors {
+#    background $base03
+#    statusline #657B83
+#    separator  #666666
+
+#    focused_workspace  $base02 $base02 $base0 
+#    active_workspace   $base02 $base02 $base0 
+#    inactive_workspace $base03 $base03 $base0 
+#    urgent_workspace   $red $red $base0
+#    binding_mode       #2F343A #900000 #FFFFFF
+#  }
+#}
